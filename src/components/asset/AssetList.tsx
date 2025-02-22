@@ -4,14 +4,12 @@ import { Table } from '../ui/Table';
 import { useAssets } from '@/hooks/useAssets';
 import { Button } from '../ui/Button';
 import { useRouter } from 'next/navigation';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { assetService } from '@/services/AssetServices';
 
 export const AssetList: React.FC = () => {
   const router = useRouter();
   const { data, isLoading, error } = useAssets();
-
-  if (isLoading) return <p>Carregando...</p>;
-  if (error instanceof Error) return <p>Erro: {error.message}</p>;
 
   const columns = [
     { key: 'name', label: 'Nome' },
@@ -20,13 +18,29 @@ export const AssetList: React.FC = () => {
     { key: 'action', label: 'Ação' },
   ];
 
+  const queryClient = useQueryClient();
+
+  const mutationRemove = useMutation({
+    mutationFn: assetService.removeAsset,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['assets'] });
+      alert('Ativo removido com sucesso');
+    },
+    onError: (error: any) => {
+      alert(`Erro ao remover ativo: ${error.message}`);
+    },
+  });
+
+  if (isLoading) return <p>Carregando...</p>;
+  if (error instanceof Error) return <p>Erro: {error.message}</p>;
+
   const handleEdit = (id: string) => {
     router.push(`/assets/edit/${id}`);
   };
 
   const handleDelete = (id: string) => {
     if (confirm('Tem certeza de que deseja excluir este ativo?')) {
-      console.log(`Ativo ${id} deletado`);
+      mutationRemove.mutate(id);
     }
   };
 
@@ -37,7 +51,7 @@ export const AssetList: React.FC = () => {
         onClick={() => handleEdit(id)}
         style={{ marginRight: '10px' }}
       >
-       Editar
+        Editar
       </Button>
       <Button variant='danger' onClick={() => handleDelete(id)}>
         Remover
@@ -50,7 +64,11 @@ export const AssetList: React.FC = () => {
       <Button onClick={() => router.push('/assets/new')}>
         Cadastrar Ativo
       </Button>
-      <Table columns={columns} data={data} renderActionColumn={actionColumnRenderer}/>
+      <Table
+        columns={columns}
+        data={data}
+        renderActionColumn={actionColumnRenderer}
+      />
     </>
   );
 };
