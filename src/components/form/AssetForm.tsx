@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,9 +8,8 @@ import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { DynamicFields } from './DynamicFields';
-import {useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { assetService } from '@/services/AssetServices';
-
 
 const schema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -25,21 +24,38 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const AssetForm: React.FC = () => {
+interface AssetFormProps {
+  initialData?: FormData;
+  id: string;
+}
 
+const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
   const queryClient = useQueryClient();
 
   const [category, setCategory] = useState<string>('Equipamento');
 
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
+    defaultValues: initialData || {
+      name: '',
+      category: 'Equipamento',
+      status: 'Ativo',
+      acquisitionDate: '',
+    },
   });
 
   const mutation = useMutation({
     mutationFn: assetService.createAsset,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['assets']}); 
-    
+      queryClient.invalidateQueries({ queryKey: ['assets'] });
+    },
+  });
+
+  const mutationUpdate = useMutation({
+    mutationFn: (data: { id: string; assetData: any }) =>
+      assetService.updateAsset(data.id, data.assetData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['assets'] });
     },
   });
 
@@ -49,8 +65,21 @@ const AssetForm: React.FC = () => {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
-    mutation.mutate(data);
+    if (initialData) {
+      mutationUpdate.mutate({
+        id,
+        assetData: data,
+      });
+    } else {
+      mutation.mutate(data);
+    }
   };
+
+  useEffect(() => {
+    if (initialData) {
+      setCategory(initialData.category); // Ajuste a categoria com base nos dados iniciais
+    }
+  }, [initialData]);
 
   return (
     <FormProvider {...methods}>
