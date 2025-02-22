@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import styled from 'styled-components';
 
@@ -10,6 +10,7 @@ interface Column {
 interface TableProps {
   columns: Column[];
   data: Record<string, any>[];
+  renderActionColumn?: (id: string) => JSX.Element;
 }
 
 const TableWrapper = styled.div`
@@ -35,7 +36,11 @@ const Td = styled.td`
   border-bottom: 1px solid #ddd;
 `;
 
-export const Table: React.FC<TableProps> = ({ data, columns }) => {
+export const Table: React.FC<TableProps> = ({
+  data,
+  columns,
+  renderActionColumn,
+}) => {
   return (
     <TableWrapper>
       <StyledTable>
@@ -50,7 +55,11 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
           {data.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {columns.map((col) => (
-                <Td key={col.key}>{row[col.key]}</Td>
+                <Td key={col.key}>
+                  {col.key === 'action' && renderActionColumn
+                    ? renderActionColumn(row.id)
+                    : row[col.key]}
+                </Td>
               ))}
             </tr>
           ))}
@@ -59,4 +68,3 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
     </TableWrapper>
   );
 };
-
