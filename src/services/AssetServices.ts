@@ -6,16 +6,20 @@ export const assetService = {
     category = '',
     status = '',
     sortBy = '',
+    sortOrder = 'asc',
     page = 1,
     per_page = 1,
   }) => {
-
+    
     const queryParams = new URLSearchParams();
 
     if (search) queryParams.append('name_like', search);
     if (category) queryParams.append('category', category);
     if (status) queryParams.append('status', status);
-    if (sortBy) queryParams.append('sortBy', sortBy);
+    if (sortBy) {
+      queryParams.append('_sort', sortBy);
+      queryParams.append('_order', sortOrder);
+    }
     queryParams.append('page', page.toString());
     queryParams.append('_limit', per_page.toString());
 
