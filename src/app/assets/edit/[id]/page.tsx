@@ -20,7 +20,13 @@ export default async function EditAssetPage({ params }: EditAssetPageParams) {
     name: asset.name,
     category: asset.category,
     status: asset.status,
+    description: asset.description,
     acquisitionDate: asset.acquisitionDate,
+    serialNumber: asset.serialNumber,
+    supplier: asset.supplier,
+    licensePlate: asset.licensePlate,
+    licenseKey: asset.licenseKey,
+    licenseValidity: asset.licenseValidity,
   };
 
   return (
