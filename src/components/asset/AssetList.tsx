@@ -15,7 +15,8 @@ export const AssetList: React.FC = () => {
     search: '',
     category: '',
     status: '',
-    sortby: '',
+    sortBy: '',
+    sortOrder: 'asc',
     page: 1,
     per_page: 5,
   });
@@ -25,10 +26,10 @@ export const AssetList: React.FC = () => {
   const { data, isLoading, error } = useAssets(filters);
 
   const columns = [
-    { key: 'name', label: 'Nome' },
-    { key: 'category', label: 'Categoria' },
-    { key: 'status', label: 'Status' },
-    { key: 'action', label: 'Ação' },
+    { key: 'name', label: 'Nome', sortable: true },
+    { key: 'category', label: 'Categoria', sortable: true },
+    { key: 'status', label: 'Status', sortable: true },
+    { key: 'action', label: 'Ação', sortable: false },
   ];
 
   const queryClient = useQueryClient();
@@ -56,7 +57,7 @@ export const AssetList: React.FC = () => {
       mutationRemove.mutate(id);
     }
   };
-  
+
   const actionColumnRenderer = (id: string) => (
     <div>
       <Button
@@ -76,6 +77,15 @@ export const AssetList: React.FC = () => {
     setFilters(filterValues);
   };
 
+  const handleSort = (columnKey: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      sortBy: columnKey,
+      sortOrder:
+        prev.sortBy === columnKey && prev.sortOrder === 'asc' ? 'desc' : 'asc',
+    }));
+  };
+
   return (
     <>
       <Button onClick={() => router.push('/assets/new')}>
@@ -89,6 +99,9 @@ export const AssetList: React.FC = () => {
         columns={columns}
         data={data}
         renderActionColumn={actionColumnRenderer}
+        sortBy={filters.sortBy}
+        sortOrder={filters.sortOrder}
+        onSort={handleSort}
       />
     </>
   );

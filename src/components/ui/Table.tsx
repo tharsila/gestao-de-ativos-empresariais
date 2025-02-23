@@ -1,16 +1,21 @@
 'use client';
 
 import styled from 'styled-components';
+import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 
 interface Column {
   key: string;
   label: string;
+  sortable: boolean;
 }
 
 interface TableProps {
   columns: Column[];
   data: Record<string, any>[];
+  sortBy: string;
+  sortOrder: string;
   renderActionColumn?: (id: string) => JSX.Element;
+  onSort?: (columnKey: string) => void;
 }
 
 const TableWrapper = styled.div`
@@ -40,15 +45,36 @@ export const Table: React.FC<TableProps> = ({
   data,
   columns,
   renderActionColumn,
+  sortBy,
+  sortOrder,
+  onSort,
 }) => {
   return (
     <TableWrapper>
       <StyledTable>
         <thead>
           <tr>
-            {columns.map((col) => (
-              <Th key={col.key}>{col.label}</Th>
-            ))}
+            {columns.map((col) => {
+              const isSorted = sortBy === col.key;
+              const icon =
+                isSorted && sortOrder === 'asc' ? (
+                  <FaSortUp />
+                ) : isSorted && sortOrder === 'desc' ? (
+                  <FaSortDown />
+                ) : (
+                  <FaSort />
+                );
+
+              return (
+                <Th
+                  key={col.key}
+                  onClick={col.sortable ? () => onSort?.(col.key) : undefined}
+                  style={{ cursor: col.sortable ? 'pointer' : 'default' }}
+                >
+                  {col.label} {col.sortable && icon}
+                </Th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
