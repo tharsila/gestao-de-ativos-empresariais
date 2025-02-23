@@ -21,12 +21,17 @@ interface TableProps {
 const TableWrapper = styled.div`
   overflow-x: auto;
   width: 100%;
+  height: 400px;
 `;
 
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+
+  @media (max-width: 505px) {
+    width: 475px
+  }
 `;
 
 const Th = styled.th`
