@@ -21,6 +21,7 @@ const schema = z
     status: z.enum(['Ativo', 'Em manutenção', 'Inativo'], {
       errorMap: () => ({ message: 'Status é obrigatório' }),
     }),
+    description: z.string().optional(),
     acquisitionDate: z.string().min(1, 'Data de aquisição é obrigatória'),
 
     serialNumber: z.string().optional(),
@@ -96,7 +97,13 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
       name: '',
       category: 'Equipamento',
       status: 'Ativo',
+      description: '',
       acquisitionDate: '',
+      serialNumber: '',
+      supplier: '',
+      licensePlate: '',
+      licenseKey: '',
+      licenseValidity: '',
     },
   });
 
@@ -182,6 +189,9 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
             { value: 'Inativo', label: 'Inativo' },
           ]}
         />
+
+        <Input label='Descrição' name='description' type='text' />
+
         <Input label='Data de aquisição' name='acquisitionDate' type='date' />
 
         <DynamicFields category={category} />
