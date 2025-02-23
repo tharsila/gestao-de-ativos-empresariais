@@ -5,7 +5,7 @@ import { Layout } from '@/components/layout/Layout';
 const NewAssetPage = () => {
   return (
     <Layout>
-      <h1>Cadastrar Novo Ativo</h1>
+      <h2>Cadastrar Novo Ativo</h2>
       <AssetForm />
     </Layout>
   );

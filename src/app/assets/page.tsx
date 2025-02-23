@@ -9,7 +9,7 @@ export default function AssetsPage (){
   return (
     <main>
        <Layout>
-          <h1>Lista de Ativos</h1>
+          <h2>Lista de Ativos</h2>
           <AssetList />
        </Layout>
     </main>

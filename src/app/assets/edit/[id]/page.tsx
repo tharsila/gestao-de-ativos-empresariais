@@ -25,7 +25,7 @@ export default async function EditAssetPage({ params }: EditAssetPageParams) {
 
   return (
     <Layout>
-      <h1>Editar Ativo</h1>
+      <h2>Editar Ativo</h2>
       <AssetForm initialData={initialData} id={id} />
     </Layout>
   );
