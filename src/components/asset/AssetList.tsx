@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { assetService } from '@/services/AssetServices';
 import { AssetFilters } from './AssetFilters';
+import { Pagination } from '../pagination/Pagination';
 
 export const AssetList: React.FC = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ export const AssetList: React.FC = () => {
     sortBy: '',
     sortOrder: 'asc',
     page: 1,
-    per_page: 5,
+    perPage: 3,
   });
 
   const [filterValues, setFilterValues] = useState(filters);
@@ -86,6 +87,14 @@ export const AssetList: React.FC = () => {
     }));
   };
 
+  const handleNextPage = () => {
+    setFilters((prev) => ({ ...prev, page: prev.page + 1 }));
+  };
+
+  const handlePreviousPage = () => {
+    setFilters((prev) => ({ ...prev, page: prev.page - 1 }));
+  };
+
   return (
     <>
       <Button onClick={() => router.push('/assets/new')}>
@@ -97,11 +106,18 @@ export const AssetList: React.FC = () => {
       </Button>
       <Table
         columns={columns}
-        data={data}
+        data={data?.response}
         renderActionColumn={actionColumnRenderer}
         sortBy={filters.sortBy}
         sortOrder={filters.sortOrder}
         onSort={handleSort}
+      />
+      <Pagination
+        page={filters.page}
+        perPage={filters.perPage}
+        totalRecords={Number(data?.total)}
+        nextPage={handleNextPage}
+        prevPage={handlePreviousPage}
       />
     </>
   );
