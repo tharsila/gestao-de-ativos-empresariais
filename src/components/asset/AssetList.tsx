@@ -17,8 +17,10 @@ export const AssetList: React.FC = () => {
     status: '',
     sortby: '',
     page: 1,
-    per_page: 1,
+    per_page: 5,
   });
+
+  const [filterValues, setFilterValues] = useState(filters);
 
   const { data, isLoading, error } = useAssets(filters);
 
@@ -45,7 +47,6 @@ export const AssetList: React.FC = () => {
   if (isLoading) return <p>Carregando...</p>;
   if (error instanceof Error) return <p>Erro: {error.message}</p>;
 
-
   const handleEdit = (id: string) => {
     router.push(`/assets/edit/${id}`);
   };
@@ -55,6 +56,7 @@ export const AssetList: React.FC = () => {
       mutationRemove.mutate(id);
     }
   };
+  
   const actionColumnRenderer = (id: string) => (
     <div>
       <Button
@@ -70,16 +72,19 @@ export const AssetList: React.FC = () => {
     </div>
   );
 
+  const handleApplyFilters = () => {
+    setFilters(filterValues);
+  };
 
   return (
     <>
       <Button onClick={() => router.push('/assets/new')}>
         Cadastrar Ativo
       </Button>
-      <AssetFilters
-        filters={filters}
-        setFilters={setFilters}
-      />
+      <AssetFilters filters={filterValues} setFilters={setFilterValues} />
+      <Button onClick={handleApplyFilters} style={{ marginLeft: '10px' }}>
+        Filtrar
+      </Button>
       <Table
         columns={columns}
         data={data}
