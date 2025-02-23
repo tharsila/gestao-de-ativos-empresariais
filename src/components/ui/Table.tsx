@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
+import { Badge } from '@/styles/Badge';
 
 interface Column {
   key: string;
@@ -30,7 +31,7 @@ const StyledTable = styled.table`
   margin-top: 1rem;
 
   @media (max-width: 505px) {
-    width: 475px
+    width: 475px;
   }
 `;
 
@@ -87,9 +88,13 @@ export const Table: React.FC<TableProps> = ({
             <tr key={rowIndex}>
               {columns.map((col) => (
                 <Td key={col.key}>
-                  {col.key === 'action' && renderActionColumn
-                    ? renderActionColumn(row.id)
-                    : row[col.key]}
+                  {col.key === 'status' ? (
+                    <Badge status={row[col.key]}>{row[col.key]}</Badge>
+                  ) : col.key === 'action' && renderActionColumn ? (
+                    renderActionColumn(row.id)
+                  ) : (
+                    row[col.key]
+                  )}
                 </Td>
               ))}
             </tr>
