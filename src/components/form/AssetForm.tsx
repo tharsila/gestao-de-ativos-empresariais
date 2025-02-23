@@ -32,7 +32,7 @@ interface AssetFormProps {
 
 const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
   const queryClient = useQueryClient();
-  const router = useRouter()
+  const router = useRouter();
 
   const [category, setCategory] = useState<string>('Equipamento');
 
@@ -85,7 +85,14 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
 
   return (
     <FormProvider {...methods}>
-      <Button variant='success' onClick={() => router.push('/assets')}>Voltar</Button>
+      <Button
+        $marginTop='16px'
+        $marginBottom='16px'
+        variant='success'
+        onClick={() => router.push('/assets')}
+      >
+        Voltar
+      </Button>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Input label='Nome' name='name' />
         <Select
@@ -111,7 +118,9 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
 
         <DynamicFields category={category} />
 
-        <Button type='submit'>Cadastrar Ativo</Button>
+        <Button $marginBottom='16px' type='submit'>
+          {id ? 'Atualizar Ativo' : 'Cadastrar Ativo'}
+        </Button>
       </form>
     </FormProvider>
   );
