@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'danger' | 'success';
+  $marginTop?: string;
+  $marginBottom?: string;
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -13,6 +15,8 @@ const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
   border: none;
   transition: 0.2s ease-in-out;
+  margin-top: ${(props) => props.$marginTop || '0'};
+  margin-bottom: ${(props) => props.$marginBottom || '0'};
 
   background-color: ${({ variant }) =>
     variant === 'primary'
