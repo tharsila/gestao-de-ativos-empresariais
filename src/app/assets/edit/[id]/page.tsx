@@ -1,5 +1,6 @@
 // src/app/assets/[id]/page.tsx
 import AssetForm from '@/components/form/AssetForm';
+import { Layout } from '@/components/layout/Layout';
 import { assetService } from '@/services/AssetServices';
 import { notFound } from 'next/navigation';
 
@@ -23,9 +24,9 @@ export default async function EditAssetPage({ params }: EditAssetPageParams) {
   };
 
   return (
-    <div>
+    <Layout>
       <h1>Editar Ativo</h1>
       <AssetForm initialData={initialData} id={id} />
-    </div>
+    </Layout>
   );
 }
