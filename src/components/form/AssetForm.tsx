@@ -10,6 +10,7 @@ import { Select } from '../ui/Select';
 import { DynamicFields } from './DynamicFields';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { assetService } from '@/services/AssetServices';
+import { useRouter } from 'next/navigation';
 
 const schema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -31,6 +32,7 @@ interface AssetFormProps {
 
 const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
   const queryClient = useQueryClient();
+  const router = useRouter()
 
   const [category, setCategory] = useState<string>('Equipamento');
 
@@ -83,6 +85,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
 
   return (
     <FormProvider {...methods}>
+      <Button variant='success' onClick={() => router.push('/assets')}>Voltar</Button>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Input label='Nome' name='name' />
         <Select
