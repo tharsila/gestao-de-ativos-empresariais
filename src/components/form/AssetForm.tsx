@@ -12,16 +12,68 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { assetService } from '@/services/AssetServices';
 import { useRouter } from 'next/navigation';
 
-const schema = z.object({
-  name: z.string().min(1, 'Nome é obrigatório'),
-  category: z.enum(['Equipamento', 'Veículo', 'Software'], {
-    errorMap: () => ({ message: 'Categoria é obrigatória' }),
-  }),
-  status: z.enum(['Ativo', 'Em manutenção', 'Inativo'], {
-    errorMap: () => ({ message: 'Status é obrigatório' }),
-  }),
-  acquisitionDate: z.string().min(1, 'Data de aquisição é obrigatória'),
-});
+const schema = z
+  .object({
+    name: z.string().min(1, 'Nome é obrigatório'),
+    category: z.enum(['Equipamento', 'Veículo', 'Software'], {
+      errorMap: () => ({ message: 'Categoria é obrigatória' }),
+    }),
+    status: z.enum(['Ativo', 'Em manutenção', 'Inativo'], {
+      errorMap: () => ({ message: 'Status é obrigatório' }),
+    }),
+    acquisitionDate: z.string().min(1, 'Data de aquisição é obrigatória'),
+
+    serialNumber: z.string().optional(),
+    supplier: z.string().optional(),
+    licensePlate: z.string().optional(),
+    licenseKey: z.string().optional(),
+    licenseValidity: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.category === 'Equipamento') {
+      if (!data.serialNumber) {
+        ctx.addIssue({
+          path: ['serialNumber'],
+          message: 'Número de série é obrigatório para Equipamento',
+          code: z.ZodIssueCode.custom,
+        });
+      }
+      if (!data.supplier) {
+        ctx.addIssue({
+          path: ['supplier'],
+          message: 'Fornecedor é obrigatório para Equipamento',
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    }
+
+    if (data.category === 'Veículo') {
+      if (!data.licensePlate) {
+        ctx.addIssue({
+          path: ['licensePlate'],
+          message: 'Placa é obrigatória para Veículo',
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    }
+
+    if (data.category === 'Software') {
+      if (!data.licenseKey) {
+        ctx.addIssue({
+          path: ['licenseKey'],
+          message: 'Chave de Licença é obrigatória para Software',
+          code: z.ZodIssueCode.custom,
+        });
+      }
+      if (!data.licenseValidity) {
+        ctx.addIssue({
+          path: ['licenseValidity'],
+          message: 'Validade da Licença é obrigatória para Software',
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    }
+  });
 
 type FormData = z.infer<typeof schema>;
 
@@ -34,7 +86,9 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const [category, setCategory] = useState<string>('Equipamento');
+  const [category, setCategory] = useState<
+    'Equipamento' | 'Veículo' | 'Software'
+  >('Equipamento');
 
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -62,7 +116,22 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
   });
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
+    const selectedCategory = e.target.value as
+      | 'Equipamento'
+      | 'Veículo'
+      | 'Software';
+
+    setCategory(selectedCategory);
+
+    methods.reset({
+      ...methods.getValues(),
+      category: selectedCategory,
+      serialNumber: '',
+      supplier: '',
+      licensePlate: '',
+      licenseKey: '',
+      licenseValidity: '',
+    });
   };
 
   const onSubmit = (data: FormData) => {
