@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../ui/Button';
+import { FlexBox } from '@/styles/FlexBox';
 
 interface PaginationProps {
   page: number;
@@ -20,12 +21,12 @@ export const Pagination: React.FC<PaginationProps> = ({
   const isLastPage = page === totalPages;
 
   return (
-    <div style={{ display: 'flex', gap: '10px', marginTop: '15px', justifyContent: 'space-between' }}>
+    <FlexBox $gap='10px' $marginTop='15px' $justifyContent='space-between'>
       <div>
         <Button variant='secondary' onClick={prevPage} disabled={page === 1}>
           Anterior
         </Button>
-        <span style={{padding: '16px'}}>Página {page}</span>
+        <span style={{ padding: '16px' }}>Página {page}</span>
         <Button variant='secondary' onClick={nextPage} disabled={isLastPage}>
           Próxima
         </Button>
@@ -42,6 +43,6 @@ export const Pagination: React.FC<PaginationProps> = ({
           )} de ${totalRecords} registros`}
         </p>
       </div>
-    </div>
+    </FlexBox>
   );
 };

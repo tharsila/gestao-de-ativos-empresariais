@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { assetService } from '@/services/AssetServices';
 import { AssetFilters } from './AssetFilters';
 import { Pagination } from '../pagination/Pagination';
+import { FlexBox } from '@/styles/FlexBox';
 
 export const AssetList: React.FC = () => {
   const router = useRouter();
@@ -97,13 +98,17 @@ export const AssetList: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => router.push('/assets/new')}>
-        Cadastrar Ativo
-      </Button>
-      <AssetFilters filters={filterValues} setFilters={setFilterValues} />
-      <Button onClick={handleApplyFilters} style={{ marginLeft: '10px' }}>
-        Filtrar
-      </Button>
+      <FlexBox $justifyContent='center' $marginTop='16px' $marginBottom='16px'>
+        <Button onClick={() => router.push('/assets/new')}>
+          Cadastrar Ativo
+        </Button>
+      </FlexBox>
+      <FlexBox $justifyContent='center' $gap='16px' $alignItems='center'>
+        <AssetFilters filters={filterValues} setFilters={setFilterValues} />
+        <Button onClick={handleApplyFilters}>
+          Filtrar
+        </Button>
+      </FlexBox>
       <Table
         columns={columns}
         data={data?.response}

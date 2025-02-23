@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { SelectFilter } from '../ui/SelectFilter';
+import { FlexBox } from '@/styles/FlexBox';
 
 interface AssetFiltersProps {
   filters: {
@@ -16,7 +17,7 @@ export const AssetFilters: React.FC<AssetFiltersProps> = ({
   setFilters,
 }) => {
   return (
-    <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+    <FlexBox $gap='10px'>
       {/* Campo de Busca */}
       <input
         type='text'
@@ -54,6 +55,6 @@ export const AssetFilters: React.FC<AssetFiltersProps> = ({
           setFilters((prev: any) => ({ ...prev, status: e.target.value }))
         }
       />
-    </div>
+    </FlexBox>
   );
 };
