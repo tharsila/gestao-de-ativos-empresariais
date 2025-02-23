@@ -1,7 +1,9 @@
+'use client'
+
 import styled from 'styled-components';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger';
+  variant?: 'primary' | 'secondary' | 'danger' | 'success';
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -17,6 +19,8 @@ const StyledButton = styled.button<ButtonProps>`
       ? '#007bff'
       : variant === 'secondary'
       ? '#6c757d'
+      : variant === 'success'
+      ? 'green'
       : '#dc3545'};
 
   color: #fff;
