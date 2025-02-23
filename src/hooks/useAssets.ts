@@ -5,13 +5,14 @@ export const useAssets = (filters: {
   search?: string;
   category?: string;
   status?: string;
-  sortby: string;
+  sortBy: string;
+  sortOrder: string;
   page: number;
   per_page?: number;
 }) => {
   return useQuery({
     queryKey: ['assets', filters],
     queryFn: () => assetService.getAssets(filters),
-    
+
   });
 };
