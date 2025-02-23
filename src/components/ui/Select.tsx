@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -10,7 +11,7 @@ interface SelectProps {
   name: string;
   label?: string;
   options: Option[];
-  onChange?: () => void;
+  onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const SelectWrapper = styled.div`

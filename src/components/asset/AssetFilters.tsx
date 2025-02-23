@@ -4,13 +4,20 @@ import { SelectFilter } from '../ui/SelectFilter';
 import { FlexBox } from '@/styles/FlexBox';
 import { InputFilter } from '../ui/InputFilter';
 
+interface Filters {
+  search: string;
+  category: string;
+  status: string;
+  sortBy: string;
+  sortOrder: string;
+  page: number;
+  perPage: number;
+}
+
 interface AssetFiltersProps {
-  filters: {
-    search: string;
-    category: string;
-    status: string;
-  };
-  setFilters: (filters: any) => void;
+  filters: Filters;
+
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 }
 
 export const AssetFilters: React.FC<AssetFiltersProps> = ({
@@ -25,7 +32,7 @@ export const AssetFilters: React.FC<AssetFiltersProps> = ({
         placeholder='Buscar por nome...'
         value={filters.search}
         onChange={(e) =>
-          setFilters((prev: any) => ({ ...prev, search: e.target.value }))
+          setFilters((prev) => ({ ...prev, search: e.target.value }))
         }
       />
 
@@ -39,7 +46,7 @@ export const AssetFilters: React.FC<AssetFiltersProps> = ({
         ]}
         value={filters.category}
         onChange={(e) =>
-          setFilters((prev: any) => ({ ...prev, category: e.target.value }))
+          setFilters((prev) => ({ ...prev, category: e.target.value }))
         }
       />
 
@@ -53,7 +60,7 @@ export const AssetFilters: React.FC<AssetFiltersProps> = ({
         ]}
         value={filters.status}
         onChange={(e) =>
-          setFilters((prev: any) => ({ ...prev, status: e.target.value }))
+          setFilters((prev) => ({ ...prev, status: e.target.value }))
         }
       />
     </FlexBox>

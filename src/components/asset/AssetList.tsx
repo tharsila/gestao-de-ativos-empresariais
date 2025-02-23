@@ -43,7 +43,7 @@ export const AssetList: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['assets'] });
       alert('Ativo removido com sucesso');
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       alert(`Erro ao remover ativo: ${error.message}`);
     },
   });

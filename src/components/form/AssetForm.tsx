@@ -27,7 +27,7 @@ type FormData = z.infer<typeof schema>;
 
 interface AssetFormProps {
   initialData?: FormData;
-  id: string;
+  id?: string;
 }
 
 const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
@@ -66,8 +66,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
   };
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
-    if (initialData) {
+    if (initialData && id) {
       mutationUpdate.mutate({
         id,
         assetData: data,
@@ -79,7 +78,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
 
   useEffect(() => {
     if (initialData) {
-      setCategory(initialData.category); // Ajuste a categoria com base nos dados iniciais
+      setCategory(initialData.category);
     }
   }, [initialData]);
 
