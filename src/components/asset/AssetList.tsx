@@ -9,6 +9,7 @@ import { assetService } from '@/services/AssetServices';
 import { AssetFilters } from './AssetFilters';
 import { Pagination } from '../pagination/Pagination';
 import { FlexBox } from '@/styles/FlexBox';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 export const AssetList: React.FC = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ export const AssetList: React.FC = () => {
     sortBy: '',
     sortOrder: 'asc',
     page: 1,
-    perPage: 3,
+    perPage: 5,
   });
 
   const [filterValues, setFilterValues] = useState(filters);
@@ -61,18 +62,17 @@ export const AssetList: React.FC = () => {
   };
 
   const actionColumnRenderer = (id: string) => (
-    <div>
+    <FlexBox $gap='4px'>
       <Button
         variant='secondary'
         onClick={() => handleEdit(id)}
-        style={{ marginRight: '10px' }}
       >
-        Editar
+        <FaEdit />
       </Button>
       <Button variant='danger' onClick={() => handleDelete(id)}>
-        Remover
+        <FaTrash />
       </Button>
-    </div>
+    </FlexBox>
   );
 
   const handleApplyFilters = () => {
@@ -103,11 +103,15 @@ export const AssetList: React.FC = () => {
           Cadastrar Ativo
         </Button>
       </FlexBox>
-      <FlexBox $justifyContent='center' $gap='16px' $alignItems='center'>
+      <FlexBox
+        $justifyContent='center'
+        $gap='16px'
+        $alignItems='center'
+        $responsive={true}
+        $responsiveFlexDirection='column'
+      >
         <AssetFilters filters={filterValues} setFilters={setFilterValues} />
-        <Button onClick={handleApplyFilters}>
-          Filtrar
-        </Button>
+        <Button onClick={handleApplyFilters}>Filtrar</Button>
       </FlexBox>
       <Table
         columns={columns}

@@ -2,6 +2,7 @@
 import React from 'react';
 import { SelectFilter } from '../ui/SelectFilter';
 import { FlexBox } from '@/styles/FlexBox';
+import { InputFilter } from '../ui/InputFilter';
 
 interface AssetFiltersProps {
   filters: {
@@ -17,9 +18,9 @@ export const AssetFilters: React.FC<AssetFiltersProps> = ({
   setFilters,
 }) => {
   return (
-    <FlexBox $gap='10px'>
-      {/* Campo de Busca */}
-      <input
+    <FlexBox $gap='10px' $responsive={true} $responsiveFlexDirection='column'>
+      <InputFilter
+        name='search'
         type='text'
         placeholder='Buscar por nome...'
         value={filters.search}
