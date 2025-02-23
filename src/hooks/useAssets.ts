@@ -8,7 +8,7 @@ export const useAssets = (filters: {
   sortBy: string;
   sortOrder: string;
   page: number;
-  per_page?: number;
+  perPage?: number;
 }) => {
   return useQuery({
     queryKey: ['assets', filters],
