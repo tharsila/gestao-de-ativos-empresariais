@@ -8,7 +8,7 @@ export const assetService = {
     sortBy = '',
     sortOrder = 'asc',
     page = 1,
-    per_page = 1,
+    perPage = 1,
   }) => {
     
     const queryParams = new URLSearchParams();
@@ -20,11 +20,15 @@ export const assetService = {
       queryParams.append('_sort', sortBy);
       queryParams.append('_order', sortOrder);
     }
-    queryParams.append('page', page.toString());
-    queryParams.append('_limit', per_page.toString());
+    queryParams.append('_page', page.toString());
+    queryParams.append('_limit', perPage.toString());
 
     const response = await fetch(`${API}/assets?${queryParams.toString()}`);
-    return response.json();
+
+    const total = response.headers.get('X-Total-Count') || 0;
+    const data = await response.json();
+    
+    return { response: data, total }
   },
 
   createAsset: async (data: any) => {
