@@ -1,5 +1,6 @@
 'use client';
 
+import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 interface Option {
@@ -10,7 +11,8 @@ interface Option {
 interface SelectProps {
   name: string;
   options: Option[];
-  onChange?: () => void;
+  value: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const StyledSelect = styled.select`
