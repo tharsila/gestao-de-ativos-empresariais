@@ -1,15 +1,26 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from '../ui/Table';
 import { useAssets } from '@/hooks/useAssets';
 import { Button } from '../ui/Button';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { assetService } from '@/services/AssetServices';
+import { AssetFilters } from './AssetFilters';
 
 export const AssetList: React.FC = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useAssets();
+
+  const [filters, setFilters] = useState({
+    search: '',
+    category: '',
+    status: '',
+    sortby: '',
+    page: 1,
+    per_page: 1,
+  });
+
+  const { data, isLoading, error } = useAssets(filters);
 
   const columns = [
     { key: 'name', label: 'Nome' },
@@ -34,6 +45,7 @@ export const AssetList: React.FC = () => {
   if (isLoading) return <p>Carregando...</p>;
   if (error instanceof Error) return <p>Erro: {error.message}</p>;
 
+
   const handleEdit = (id: string) => {
     router.push(`/assets/edit/${id}`);
   };
@@ -43,7 +55,6 @@ export const AssetList: React.FC = () => {
       mutationRemove.mutate(id);
     }
   };
-
   const actionColumnRenderer = (id: string) => (
     <div>
       <Button
@@ -59,11 +70,16 @@ export const AssetList: React.FC = () => {
     </div>
   );
 
+
   return (
     <>
       <Button onClick={() => router.push('/assets/new')}>
         Cadastrar Ativo
       </Button>
+      <AssetFilters
+        filters={filters}
+        setFilters={setFilters}
+      />
       <Table
         columns={columns}
         data={data}
