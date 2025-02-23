@@ -10,6 +10,11 @@ interface FlexBoxProps {
   $marginTop?: string;
   $marginBottom?: string;
   $padding?: string;
+  $responsive?: boolean; 
+  $responsiveFlexDirection?: string;
+  $responsiveJustifyContent?: string;
+  $responsiveAlignItems?: string;
+  $responsiveGap?: string;
 }
 
 export const FlexBox = styled.div<FlexBoxProps>`
@@ -21,4 +26,13 @@ export const FlexBox = styled.div<FlexBoxProps>`
   margin-top: ${(props) => props.$marginTop || '0'};
   margin-bottom: ${(props) => props.$marginBottom || '0'};
   padding: ${(props) => props.$padding || '0'};
+
+  ${(props) =>
+    props.$responsive &&
+    `@media (max-width: 768px) {
+      flex-direction: ${props.$responsiveFlexDirection || 'column'};
+      justify-content: ${props.$responsiveJustifyContent};
+      align-items: ${props.$responsiveAlignItems};
+      gap: ${props.$responsiveGap || '8px'};
+    }`}
 `;
