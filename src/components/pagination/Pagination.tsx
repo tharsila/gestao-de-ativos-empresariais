@@ -21,7 +21,16 @@ export const Pagination: React.FC<PaginationProps> = ({
   const isLastPage = page === totalPages;
 
   return (
-    <FlexBox $gap='10px' $marginTop='15px' $justifyContent='space-between'>
+    <FlexBox
+      $gap='10px'
+      $marginTop='15px'
+      $justifyContent='space-between'
+      $alignItems='center'
+      $responsive={true}
+      $responsiveFlexDirection='column'
+      $responsiveJustifyContent='center'
+      $responsiveAlignItems='center'
+    >
       <div>
         <Button variant='secondary' onClick={prevPage} disabled={page === 1}>
           Anterior
