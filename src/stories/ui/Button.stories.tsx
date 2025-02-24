@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { Button } from '../../components/ui/Button';
 
 const buttonMeta: Meta<typeof Button> = {
@@ -14,7 +15,7 @@ const buttonMeta: Meta<typeof Button> = {
     disabled: {
       control: 'boolean',
     },
-    
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -26,6 +27,7 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     children: 'Primary Button',
+    onClick: fn(),
   },
 };
 
@@ -33,6 +35,7 @@ export const Secondary: Story = {
   args: {
     variant: 'secondary',
     children: 'Secondary Button',
+    onClick: fn(),
   },
 };
 
@@ -40,6 +43,7 @@ export const Danger: Story = {
   args: {
     variant: 'danger',
     children: 'Danger Button',
+    onClick: fn(),
   },
 };
 
@@ -47,6 +51,7 @@ export const Success: Story = {
   args: {
     variant: 'success',
     children: 'Success Button',
+    onClick: fn(),
   },
 };
 
@@ -56,6 +61,7 @@ export const CustomMargin: Story = {
     $marginTop: '20px',
     $marginBottom: '10px',
     children: 'Custom Margin Button',
+    onClick: fn(),
   },
 };
 
