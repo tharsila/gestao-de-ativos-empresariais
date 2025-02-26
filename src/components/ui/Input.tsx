@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useFormContext } from 'react-hook-form';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label?: string;
 }

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { useFormContext } from 'react-hook-form';
 import { ChangeEvent } from 'react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
