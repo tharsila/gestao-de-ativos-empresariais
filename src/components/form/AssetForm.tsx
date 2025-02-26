@@ -163,7 +163,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
       <Button
         $marginTop='16px'
         $marginBottom='16px'
-        variant='success'
+        $variant='success'
         onClick={() => router.push('/assets')}
       >
         Voltar

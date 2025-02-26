@@ -64,14 +64,14 @@ export const AssetList: React.FC = () => {
   const actionColumnRenderer = (id: string) => (
     <FlexBox $gap='4px'>
       <Button
-        variant='secondary'
+        $variant='secondary'
         onClick={() => handleEdit(id)}
         aria-label={`Editar ${id}`}
       >
         <FaEdit />
       </Button>
       <Button
-        variant='danger'
+        $variant='danger'
         onClick={() => handleDelete(id)}
         aria-label={`Remover ${id}`}
       >

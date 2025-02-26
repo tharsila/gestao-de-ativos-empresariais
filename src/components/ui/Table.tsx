@@ -89,7 +89,7 @@ export const Table: React.FC<TableProps> = ({
               {columns.map((col) => (
                 <Td key={col.key}>
                   {col.key === 'status' ? (
-                    <Badge status={row[col.key]}>{row[col.key]}</Badge>
+                    <Badge $status={row[col.key]}>{row[col.key]}</Badge>
                   ) : col.key === 'action' && renderActionColumn ? (
                     renderActionColumn(row.id)
                   ) : (

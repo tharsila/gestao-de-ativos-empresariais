@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'success';
+  $variant?: 'primary' | 'secondary' | 'danger' | 'success';
   $marginTop?: string;
   $marginBottom?: string;
 }
@@ -18,12 +18,12 @@ const StyledButton = styled.button<ButtonProps>`
   margin-top: ${(props) => props.$marginTop || '0'};
   margin-bottom: ${(props) => props.$marginBottom || '0'};
 
-  background-color: ${({ variant }) =>
-    variant === 'primary'
+  background-color: ${({ $variant }) =>
+    $variant === 'primary'
       ? '#007bff'
-      : variant === 'secondary'
+      : $variant === 'secondary'
       ? '#6c757d'
-      : variant === 'success'
+      : $variant === 'success'
       ? 'green'
       : '#dc3545'};
 
@@ -36,11 +36,11 @@ const StyledButton = styled.button<ButtonProps>`
 
 export const Button: React.FC<ButtonProps> = ({
   children,
-  variant = 'primary',
+  $variant = 'primary',
   ...props
 }) => {
   return (
-    <StyledButton variant={variant} {...props}>
+    <StyledButton $variant={$variant} {...props}>
       {children}
     </StyledButton>
   );

@@ -32,11 +32,11 @@ export const Pagination: React.FC<PaginationProps> = ({
       $responsiveAlignItems='center'
     >
       <div>
-        <Button variant='secondary' onClick={prevPage} disabled={page === 1}>
+        <Button $variant='secondary' onClick={prevPage} disabled={page === 1}>
           Anterior
         </Button>
         <span style={{ padding: '16px' }}>Página {page}</span>
-        <Button variant='secondary' onClick={nextPage} disabled={isLastPage}>
+        <Button $variant='secondary' onClick={nextPage} disabled={isLastPage}>
           Próxima
         </Button>
       </div>
