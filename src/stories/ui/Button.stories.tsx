@@ -6,7 +6,7 @@ const buttonMeta: Meta<typeof Button> = {
   title: 'Components/UI/Button',
   component: Button,
   argTypes: {
-    variant: {
+    $variant: {
       control: {
         type: 'select',
         options: ['primary', 'secondary', 'danger', 'success'],
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    variant: 'primary',
+    $variant: 'primary',
     children: 'Primary Button',
     onClick: fn(),
   },
@@ -33,7 +33,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    variant: 'secondary',
+    $variant: 'secondary',
     children: 'Secondary Button',
     onClick: fn(),
   },
@@ -41,7 +41,7 @@ export const Secondary: Story = {
 
 export const Danger: Story = {
   args: {
-    variant: 'danger',
+    $variant: 'danger',
     children: 'Danger Button',
     onClick: fn(),
   },
@@ -49,7 +49,7 @@ export const Danger: Story = {
 
 export const Success: Story = {
   args: {
-    variant: 'success',
+    $variant: 'success',
     children: 'Success Button',
     onClick: fn(),
   },
@@ -57,7 +57,7 @@ export const Success: Story = {
 
 export const CustomMargin: Story = {
   args: {
-    variant: 'primary',
+    $variant: 'primary',
     $marginTop: '20px',
     $marginBottom: '10px',
     children: 'Custom Margin Button',
@@ -67,7 +67,7 @@ export const CustomMargin: Story = {
 
 export const Disabled: Story = {
   args: {
-    variant: 'primary',
+    $variant: 'primary',
     disabled: true,
     children: 'Disabled Button',
   },
