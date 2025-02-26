@@ -111,6 +111,8 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
     mutationFn: assetService.createAsset,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['assets'] });
+      alert('Criado com sucesso')
+      router.push('/assets')
     },
   });
 
@@ -119,6 +121,8 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
       assetService.updateAsset(data.id, data.assetData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['assets'] });
+      alert('Atualizado com sucesso')
+      router.push('/assets')
     },
   });
 

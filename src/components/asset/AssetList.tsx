@@ -29,10 +29,10 @@ export const AssetList: React.FC = () => {
   const { data, isLoading, error } = useAssets(filters);
 
   const columns = [
-    { key: 'name', label: 'Nome', sortable: true },
-    { key: 'category', label: 'Categoria', sortable: true },
-    { key: 'status', label: 'Status', sortable: true },
-    { key: 'action', label: 'Ação', sortable: false },
+    { key: 'name', label: 'Nome', sortable: true, width: '60%' },
+    { key: 'category', label: 'Categoria', sortable: true, width: '15%' },
+    { key: 'status', label: 'Status', sortable: true, width: '15%' },
+    { key: 'action', label: 'Ação', sortable: false, width: '10%' },
   ];
 
   const queryClient = useQueryClient();

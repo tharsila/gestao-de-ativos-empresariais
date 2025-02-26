@@ -8,6 +8,7 @@ interface Column {
   key: string;
   label: string;
   sortable: boolean;
+  width: string;
 }
 
 interface TableProps {
@@ -75,7 +76,7 @@ export const Table: React.FC<TableProps> = ({
                 <Th
                   key={col.key}
                   onClick={col.sortable ? () => onSort?.(col.key) : undefined}
-                  style={{ cursor: col.sortable ? 'pointer' : 'default' }}
+                  style={{ width: col.width, cursor: col.sortable ? 'pointer' : 'default' }}
                 >
                   {col.label} {col.sortable && icon}
                 </Th>
