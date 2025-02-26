@@ -66,10 +66,15 @@ export const AssetList: React.FC = () => {
       <Button
         variant='secondary'
         onClick={() => handleEdit(id)}
+        aria-label={`Editar ${id}`}
       >
         <FaEdit />
       </Button>
-      <Button variant='danger' onClick={() => handleDelete(id)}>
+      <Button
+        variant='danger'
+        onClick={() => handleDelete(id)}
+        aria-label={`Remover ${id}`}
+      >
         <FaTrash />
       </Button>
     </FlexBox>
