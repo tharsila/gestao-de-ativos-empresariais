@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto
 
-## Getting Started
+## 📌 Sobre o Projeto
 
-First, run the development server:
+Gestão de Ativos Empresariais
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Tecnologias Utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Next.js](https://nextjs.org/)
+- [Styled Components](https://styled-components.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Storybook](https://storybook.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Zod](https://zod.dev/)
+- [json-server](https://github.com/typicode/json-server)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Como Rodar o Projeto
 
-To learn more about Next.js, take a look at the following resources:
+### 🔧 Pré-requisitos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Antes de começar, certifique-se de ter instalado em sua máquina:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Node.js](https://nodejs.org/) (versão recomendada: LTS)
+- [Yarn](https://yarnpkg.com/) ou [npm](https://www.npmjs.com/)
 
-## Deploy on Vercel
+### 🚀 Instalação e Execução
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone o repositório:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   git clone https://github.com/tharsila/gestao-de-ativos-empresariais.git
+   ```
+
+2. Acesse a pasta do projeto:
+
+   ```bash
+   cd gestao-de-ativos-empresariais
+   ```
+
+3. Crie um arquivo .env na raiz do projeto e adicione:
+
+  ```NEXT_PUBLIC_API_URL = http://localhost:5000```
+
+4. Instale as dependências:
+
+   ```bash
+   yarn install
+   ```
+
+   ou
+
+   ```bash
+   npm install
+   ```
+
+5. Inicie o projeto em ambiente de desenvolvimento:
+
+   ```bash
+   yarn dev
+   ```
+
+   ou
+
+   ```bash
+   npm run dev
+
+   ```
+
+6. Para rodar o json-serve:
+
+   ```bash
+   yarn mock
+   ```
+
+   ou
+
+   ```bash
+   npm run mock
+
+   ```
+
+7. Para rodar os testes:
+
+   ```bash
+   yarn test
+   ```
+
+   ou
+
+   ```bash
+   npm run test
+   ```
+
+8. Para rodar o Storybook:
+   ```bash
+   yarn storybook
+   ```
+   ou
+   ```bash
+   npm run storybook
+   ```
+
+O projeto estará rodando em `http://localhost:3000`, json-server estará rodando em `http://localhost:5000` e o Storybook em `http://localhost:6006`.
+
+---
+
+## 🛠️ Melhorias Futuras
+
+Com mais tempo, as seguintes melhorias poderiam ser implementadas:
+
+- 📌 Implementação de um sistema de temas (dark/light mode).
+- 📌 Otimizações de performance com memoização e lazy loading.
+- 📌 Adicionar animações nas transições.
+- 📌 Adicionar botão para limpar os filtros.
+- 📌 Banco de Dados: Armazenamento de usuários reais (SQLite, PostgreSQL, MongoDB, etc.).
+- 📌 Autenticação OAuth: Login via Google, GitHub, etc.
+
+---
