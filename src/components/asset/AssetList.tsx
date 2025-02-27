@@ -1,35 +1,31 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { Table } from '../ui/Table';
 import { useAssets } from '@/hooks/useAssets';
 import { Button } from '../ui/Button';
 import { useRouter } from 'next/navigation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { assetService } from '@/services/AssetServices';
 import { AssetFilters } from './AssetFilters';
 import { Pagination } from '../pagination/Pagination';
 import { FlexBox } from '@/styles/FlexBox';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { useToast } from '@/hooks/useToast';
-import { useConfirmModal } from '@/hooks/useConfirmModal';
 import { ConfirmModal } from '../ui/ConfirmModal';
+import { useAssetActions } from '@/hooks/useAssetsActions';
+import { useAssetFilters } from '@/hooks/useAssetsFilter';
 
 export const AssetList: React.FC = () => {
   const router = useRouter();
-  const { show } = useToast();
-  const { isOpen, open, close, message, onConfirm } = useConfirmModal();
+  const {
+    filters,
+    filterValues,
+    setFilterValues,
+    handleApplyFilters,
+    handleSort,
+    handleNextPage,
+    handlePreviousPage,
+  } = useAssetFilters();
 
-  const [filters, setFilters] = useState({
-    search: '',
-    category: '',
-    status: '',
-    sortBy: '',
-    sortOrder: 'asc',
-    page: 1,
-    perPage: 5,
-  });
-
-  const [filterValues, setFilterValues] = useState(filters);
+  const { handleEdit, handleDelete, isOpen, message, onConfirm, close } =
+    useAssetActions();
 
   const { data, isLoading, error } = useAssets(filters);
 
@@ -40,32 +36,8 @@ export const AssetList: React.FC = () => {
     { key: 'action', label: 'Ação', sortable: false, width: '10%' },
   ];
 
-  const queryClient = useQueryClient();
-
-  const mutationRemove = useMutation({
-    mutationFn: assetService.removeAsset,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['assets'] });
-
-      show('Ativo removido com sucesso', 'success');
-    },
-    onError: (error: Error) => {
-      show(`Erro ao remover ativo: ${error.message}`, 'error');
-    },
-  });
-
   if (isLoading) return <p>Carregando...</p>;
   if (error instanceof Error) return <p>Erro: {error.message}</p>;
-
-  const handleEdit = (id: string) => {
-    router.push(`/assets/edit/${id}`);
-  };
-
-  const handleDelete = (id: string) => {
-    open('Tem certeza de que deseja excluir este ativo?', () =>
-      mutationRemove.mutate(id)
-    );
-  };
 
   const actionColumnRenderer = (id: string) => (
     <FlexBox $gap='4px'>
@@ -85,27 +57,6 @@ export const AssetList: React.FC = () => {
       </Button>
     </FlexBox>
   );
-
-  const handleApplyFilters = () => {
-    setFilters(filterValues);
-  };
-
-  const handleSort = (columnKey: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      sortBy: columnKey,
-      sortOrder:
-        prev.sortBy === columnKey && prev.sortOrder === 'asc' ? 'desc' : 'asc',
-    }));
-  };
-
-  const handleNextPage = () => {
-    setFilters((prev) => ({ ...prev, page: prev.page + 1 }));
-  };
-
-  const handlePreviousPage = () => {
-    setFilters((prev) => ({ ...prev, page: prev.page - 1 }));
-  };
 
   return (
     <>
