@@ -44,3 +44,12 @@ export const Date: Story = {
     type: 'date',
   },
 }
+
+export const Password: Story = {
+  render: (args) => <FormWrapper {...args} />,
+  args: {
+    name: 'password',
+    label: 'Senha',
+    type: 'password',
+  },
+}
