@@ -1,8 +1,8 @@
-# Projeto
+# Gestão de Ativos Empresariais
 
 ## 📌 Sobre o Projeto
 
-Gestão de Ativos Empresariais
+Aplicação frontend desenvolvida com Next.js para a gestão de ativos empresariais. O sistema oferece funcionalidades de cadastro, edição, listagem e exclusão de ativos, paginação, ordenação e filtros no lado do servidor.
 
 ---
 
