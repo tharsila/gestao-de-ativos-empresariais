@@ -11,6 +11,7 @@ import { DynamicFields } from './DynamicFields';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { assetService } from '@/services/AssetServices';
 import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/useToast';
 
 const schema = z
   .object({
@@ -87,6 +88,8 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
+  const { show } = useToast();
+
   const [category, setCategory] = useState<
     'Equipamento' | 'Veículo' | 'Software'
   >('Equipamento');
@@ -111,8 +114,8 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
     mutationFn: assetService.createAsset,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['assets'] });
-      alert('Criado com sucesso')
-      router.push('/assets')
+      show('Criado com sucesso', 'success');
+      router.push('/assets');
     },
   });
 
@@ -121,8 +124,8 @@ const AssetForm: React.FC<AssetFormProps> = ({ initialData, id }) => {
       assetService.updateAsset(data.id, data.assetData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['assets'] });
-      alert('Atualizado com sucesso')
-      router.push('/assets')
+      show('Atualizado com sucesso', 'success');
+      router.push('/assets');
     },
   });
 
