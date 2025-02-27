@@ -10,7 +10,7 @@ describe('Button Component', () => {
   });
 
   it('deve aplicar o estilo de variante "primary" corretamente', () => {
-    render(<Button variant='primary'>Primary Button</Button>);
+    render(<Button $variant='primary'>Primary Button</Button>);
 
     const button = screen.getByText('Primary Button');
 
@@ -18,7 +18,7 @@ describe('Button Component', () => {
   });
 
   it('deve aplicar o estilo de variante "secondary" corretamente', () => {
-    render(<Button variant='secondary'>Secondary Button</Button>);
+    render(<Button $variant='secondary'>Secondary Button</Button>);
 
     const button = screen.getByText('Secondary Button');
 
@@ -26,7 +26,7 @@ describe('Button Component', () => {
   });
 
   it('deve aplicar o estilo de variante "success" corretamente', () => {
-    render(<Button variant='success'>Success Button</Button>);
+    render(<Button $variant='success'>Success Button</Button>);
 
     const button = screen.getByText('Success Button');
 
@@ -34,7 +34,7 @@ describe('Button Component', () => {
   });
 
   it('deve aplicar o estilo de variante "danger" corretamente', () => {
-    render(<Button variant='danger'>Danger Button</Button>);
+    render(<Button $variant='danger'>Danger Button</Button>);
 
     const button = screen.getByText('Danger Button');
 
