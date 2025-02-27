@@ -115,7 +115,6 @@ O projeto estará rodando em `http://localhost:3000`, json-server estará rodand
 Com mais tempo, as seguintes melhorias poderiam ser implementadas:
 
 - 📌 Implementação de um sistema de temas (dark/light mode).
-- 📌 Otimizações de performance com memoização e lazy loading.
 - 📌 Adicionar animações nas transições.
 - 📌 Adicionar botão para limpar os filtros.
 - 📌 Banco de Dados: Armazenamento de usuários reais (SQLite, PostgreSQL, MongoDB, etc.).
