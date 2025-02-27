@@ -10,9 +10,14 @@ import { AssetFilters } from './AssetFilters';
 import { Pagination } from '../pagination/Pagination';
 import { FlexBox } from '@/styles/FlexBox';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { useToast } from '@/hooks/useToast';
+import { useConfirmModal } from '@/hooks/useConfirmModal';
+import { ConfirmModal } from '../ui/ConfirmModal';
 
 export const AssetList: React.FC = () => {
   const router = useRouter();
+  const { show } = useToast();
+  const { isOpen, open, close, message, onConfirm } = useConfirmModal();
 
   const [filters, setFilters] = useState({
     search: '',
@@ -41,10 +46,11 @@ export const AssetList: React.FC = () => {
     mutationFn: assetService.removeAsset,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['assets'] });
-      alert('Ativo removido com sucesso');
+
+      show('Ativo removido com sucesso', 'success');
     },
     onError: (error: Error) => {
-      alert(`Erro ao remover ativo: ${error.message}`);
+      show(`Erro ao remover ativo: ${error.message}`, 'error');
     },
   });
 
@@ -56,9 +62,9 @@ export const AssetList: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Tem certeza de que deseja excluir este ativo?')) {
-      mutationRemove.mutate(id);
-    }
+    open('Tem certeza de que deseja excluir este ativo?', () =>
+      mutationRemove.mutate(id)
+    );
   };
 
   const actionColumnRenderer = (id: string) => (
@@ -132,6 +138,12 @@ export const AssetList: React.FC = () => {
         totalRecords={Number(data?.total)}
         nextPage={handleNextPage}
         prevPage={handlePreviousPage}
+      />
+      <ConfirmModal
+        isOpen={isOpen}
+        message={message}
+        onConfirm={onConfirm}
+        onCancel={close}
       />
     </>
   );
