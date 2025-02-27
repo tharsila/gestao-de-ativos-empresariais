@@ -43,7 +43,9 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 
 3. Crie um arquivo .env na raiz do projeto e adicione:
 
-  ```NEXT_PUBLIC_API_URL = http://localhost:5000```
+   ```bash
+   NEXT_PUBLIC_API_URL = http://localhost:5000
+   ```
 
 4. Instale as dependências:
 
