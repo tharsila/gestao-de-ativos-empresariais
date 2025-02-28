@@ -111,6 +111,7 @@ O projeto estará rodando em `http://localhost:3000`, json-server estará rodand
 ---
 
 ## 🔑 Credenciais de Acesso
+Use as seguintes credenciais para acessar o sistema:
 
 ```bash
 E-mail: admin@email.com
