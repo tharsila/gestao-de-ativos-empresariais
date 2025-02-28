@@ -110,6 +110,16 @@ O projeto estará rodando em `http://localhost:3000`, json-server estará rodand
 
 ---
 
+## 🔑 Credenciais de Acesso
+
+```bash
+E-mail: admin@email.com
+Senha: 123456
+```
+
+---
+
+
 ## 🛠️ Melhorias Futuras
 
 Com mais tempo, as seguintes melhorias poderiam ser implementadas:
